@@ -17,6 +17,7 @@ class PUZZLEPLATFORMS_API AMovingPlatform : public AStaticMeshActor
 public:
 	AMovingPlatform();
 
+	virtual void BeginPlay() override;
 
 protected:
 
@@ -30,7 +31,7 @@ protected:
 private:
 
 	UPROPERTY(EditAnywhere)
-	float speed = 5;
+	float speed = 10;
 
 	
 };
