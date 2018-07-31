@@ -25,7 +25,6 @@ public:
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true)) 
 		FVector TargetLocation;
 
-	FVector TargetLocationPoint();
 protected:
 
 	virtual void Tick(float DeltaTime) override;
@@ -36,6 +35,8 @@ protected:
 
 
 private:
+	FVector GlobalTargetLocation;
+	FVector GlobalStartLocation;
 
 
 };
