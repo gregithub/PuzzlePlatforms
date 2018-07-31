@@ -28,8 +28,15 @@ void AMovingPlatform::Tick(float DeltaTime) {
 void AMovingPlatform::MovePlatfrom(float DeltaTime)
 {
 	FVector Location = GetActorLocation();
-	Location += FVector(speed * DeltaTime, 0, 0);
+	FVector GlobalTargetLocation = GetTransform().TransformPosition(TargetLocation);
+	FVector Direction = (GlobalTargetLocation - Location).GetSafeNormal();
+	Location += speed * DeltaTime * Direction;
 	SetActorLocation(Location);
 
 }
 
+FVector AMovingPlatform::TargetLocationPoint() {
+	FVector Target;
+	Target = TargetLocation - this->GetActorLocation();
+	return Target;
+}
