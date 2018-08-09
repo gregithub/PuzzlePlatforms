@@ -23,7 +23,9 @@ void AMovingPlatform::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
 	if (HasAuthority()) {
-		MovePlatfrom(DeltaTime);
+		if (ActiveTriggers > 0) {
+			MovePlatfrom(DeltaTime);
+		}
 	}
 
 }
@@ -46,4 +48,14 @@ void AMovingPlatform::MovePlatfrom(float DeltaTime)
 	SetActorLocation(Location);
 
 	
+}
+
+void AMovingPlatform::AddActiveTrigger() {
+	ActiveTriggers++;
+}
+
+void AMovingPlatform::RemoveActiveTrigger() {
+	if (ActiveTriggers > 0) {
+		ActiveTriggers--;
+	}
 }
