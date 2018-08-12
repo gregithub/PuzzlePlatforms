@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "PuzzlePlatformsGameInstance.h"
-
+#include"Engine/Engine.h"
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer) {
 	UE_LOG(LogTemp, Warning, TEXT("GameInstance COnstructor"));
@@ -11,4 +11,18 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitiali
 
 void UPuzzlePlatformsGameInstance::Init() {
 	UE_LOG(LogTemp, Warning, TEXT("GameInstance Init"));
+}
+
+void UPuzzlePlatformsGameInstance::Host() {
+	UEngine* Engine = GetEngine();
+	if (!ensure(Engine != nullptr)) return;
+
+	Engine->AddOnScreenDebugMessage(-1, 3, FColor::Green, TEXT("Hosting"));
+}
+
+void UPuzzlePlatformsGameInstance::Join(const FString& IPAdress) {
+	UEngine* Engine = GetEngine();
+	if (!ensure(Engine != nullptr)) return;
+
+	Engine->AddOnScreenDebugMessage(-1, 3, FColor::Blue,FString::Printf(TEXT("Joining %s"),*IPAdress));
 }
