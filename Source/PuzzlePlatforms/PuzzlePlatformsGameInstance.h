@@ -5,10 +5,8 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
-
-/**
- * 
- */
+class UUserWidget;
+	
 UCLASS()
 class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance
 {
@@ -25,4 +23,6 @@ public:
 	UFUNCTION(Exec)
 		void Join(const FString& IPAdress);
 
+private:
+	TSubclassOf<UUserWidget> MenuClass;
 };
