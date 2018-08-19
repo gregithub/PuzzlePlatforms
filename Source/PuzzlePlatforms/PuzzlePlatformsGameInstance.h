@@ -22,6 +22,9 @@ public:
 		void Host();
 	UFUNCTION(Exec)
 		void Join(const FString& IPAdress);
+	UFUNCTION(BlueprintCallable)
+		void LoadMenu();
+
 
 private:
 	TSubclassOf<UUserWidget> MenuClass;
