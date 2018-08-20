@@ -41,11 +41,23 @@ void UPuzzlePlatformsGameInstance::Join(const FString& IPAdress) {
 	PlayerControler->ClientTravel(IPAdress, ETravelType::TRAVEL_Absolute);
 }
 
+//Executed from MainMenuBP BeginPlay
 void UPuzzlePlatformsGameInstance::LoadMenu() {
 	if (!ensure(MenuClass != nullptr)) return;
 	UUserWidget* Menu = CreateWidget<UUserWidget>(this, MenuClass);
 	if (!ensure(Menu != nullptr)) return;
 
-
 	Menu->AddToViewport();
+
+	APlayerController* PlayerControler = GetFirstLocalPlayerController();
+	if (!ensure(PlayerControler != nullptr)) return;
+
+	FInputModeUIOnly InputMode;
+
+	InputMode.SetWidgetToFocus(Menu->TakeWidget());
+	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+
+	PlayerControler->SetInputMode(InputMode);
+
+	PlayerControler->bShowMouseCursor = true;
 }
