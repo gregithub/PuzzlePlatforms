@@ -5,6 +5,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include"Blueprint/UserWidget.h"
 #include"PlatformTrigger.h"
+#include"MenuSystem/MainMenu.h"
 
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer) {
@@ -44,7 +45,7 @@ void UPuzzlePlatformsGameInstance::Join(const FString& IPAdress) {
 //Executed from MainMenuBP BeginPlay
 void UPuzzlePlatformsGameInstance::LoadMenu() {
 	if (!ensure(MenuClass != nullptr)) return;
-	UUserWidget* Menu = CreateWidget<UUserWidget>(this, MenuClass);
+	UMainMenu* Menu = CreateWidget<UMainMenu>(this, MenuClass);
 	if (!ensure(Menu != nullptr)) return;
 
 	Menu->AddToViewport();
@@ -60,4 +61,6 @@ void UPuzzlePlatformsGameInstance::LoadMenu() {
 	PlayerControler->SetInputMode(InputMode);
 
 	PlayerControler->bShowMouseCursor = true;
+
+	Menu->SetMenuInterface(this);
 }
