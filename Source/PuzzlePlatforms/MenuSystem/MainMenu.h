@@ -18,4 +18,10 @@ class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
 		class UButton* Host;
 	UPROPERTY(meta = (BindWidget))
 		class UButton* Join;
+
+	UFUNCTION()
+		void HostServer();
+protected:
+
+	virtual bool Initialize() override;
 };
