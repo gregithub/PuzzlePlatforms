@@ -18,6 +18,10 @@ class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
 public:
 	void SetMenuInterface(IMenuInterface* MenuInterface);
 
+	void Setup();
+	
+	void Teardown();
+private:
 	UPROPERTY(meta = (BindWidget))
 		class UButton* Host;
 	UPROPERTY(meta = (BindWidget))

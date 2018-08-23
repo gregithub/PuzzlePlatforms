@@ -7,7 +7,8 @@
 #include"MenuSystem/MenuInterface.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
 class UUserWidget;
-	
+
+
 UCLASS()
 class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface
 {
@@ -29,4 +30,7 @@ public:
 
 private:
 	TSubclassOf<UUserWidget> MenuClass;
+
+	class UMainMenu * Menu;
+
 };
