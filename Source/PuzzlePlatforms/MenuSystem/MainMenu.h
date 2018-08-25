@@ -34,16 +34,22 @@ private:
 		class UWidget* JoinMenu;
 	UPROPERTY(meta = (BindWidget))
 		class UWidget* MainMenu;
+	UPROPERTY(meta = (BindWidget))
+		class UButton* ConnectButton;
 	
+	UPROPERTY(meta = (BindWidget))
+		class UEditableTextBox* IPTextBox;
 
 
 	UFUNCTION()
 		void HostServer();
 	UFUNCTION()
+		void Connect();
+	UFUNCTION()
 		void OpenJoinMenu();
 	UFUNCTION()
 		void OpenMainMenu();
-
+	
 	IMenuInterface* MenuInterface;
 protected:
 

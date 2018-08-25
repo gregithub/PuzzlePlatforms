@@ -3,6 +3,7 @@
 #include "MainMenu.h"
 #include"Components/Button.h"
 #include"Components/WidgetSwitcher.h"
+#include"Components/EditableTextBox.h"
 
 bool UMainMenu::Initialize() {
 	bool Success = Super::Initialize();
@@ -17,6 +18,10 @@ bool UMainMenu::Initialize() {
 
 	if (!ensure(BackButton != nullptr)) return false;
 	BackButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
+
+	if (!ensure(ConnectButton != nullptr)) return false;
+	ConnectButton->OnClicked.AddDynamic(this, &UMainMenu::Connect);
+
 
 	return true;
 }
@@ -53,10 +58,16 @@ void UMainMenu::Teardown() {
 	PlayerControler->bShowMouseCursor = false;
 
 }
-
 void UMainMenu::HostServer() {
 	if (MenuInterface != nullptr) {
 		MenuInterface->Host();
+	}
+}
+void UMainMenu::Connect() {
+	if (MenuInterface != nullptr) {
+		if (!ensure(IPTextBox != nullptr)) return;
+		const FString& Address = IPTextBox->GetText().ToString();
+		MenuInterface->Join(Address);
 	}
 }
 void UMainMenu::OpenJoinMenu() {
