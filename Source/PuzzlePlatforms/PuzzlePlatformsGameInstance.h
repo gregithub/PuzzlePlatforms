@@ -21,9 +21,11 @@ public:
 	
 	
 	UFUNCTION(Exec)
-		void Host();
+		void Host() override;
 	UFUNCTION(Exec)
-		void Join(const FString& IPAdress);
+		void Join(const FString& IPAdress) override;
+	UFUNCTION(Exec)
+		void LoadMainMenu() override;
 	UFUNCTION(BlueprintCallable)
 		void LoadMenu();
 	UFUNCTION(BluePrintCallable)

@@ -24,5 +24,6 @@ class PUZZLEPLATFORMS_API IMenuInterface
 public:
 	virtual void Host() = 0;
 	virtual void Join(const FString& IPAdress) = 0;
-	
+
+	virtual void LoadMainMenu() = 0;
 };

@@ -58,6 +58,13 @@ void UPuzzlePlatformsGameInstance::Join(const FString& IPAdress) {
 	PlayerControler->ClientTravel(IPAdress, ETravelType::TRAVEL_Absolute);
 }
 
+void UPuzzlePlatformsGameInstance::LoadMainMenu() {
+
+	APlayerController* PlayerControler = GetFirstLocalPlayerController();
+	if (!ensure(PlayerControler != nullptr)) return;
+	PlayerControler->ClientTravel("/Game/MenuSystem/MenuLevel", ETravelType::TRAVEL_Absolute);
+}
+
 //Executed from MainMenuBP BeginPlay
 void UPuzzlePlatformsGameInstance::LoadMenu() {
 	if (!ensure(MainMenuClass != nullptr)) return;
@@ -74,5 +81,5 @@ void UPuzzlePlatformsGameInstance::LoadInGameMenu(){
 	if (!ensure(GameMenu != nullptr)) return;
 
 	GameMenu->Setup();
-
+	GameMenu->SetMenuInterface(this);
 }
