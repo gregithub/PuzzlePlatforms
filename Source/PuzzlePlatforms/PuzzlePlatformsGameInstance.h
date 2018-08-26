@@ -26,11 +26,12 @@ public:
 		void Join(const FString& IPAdress);
 	UFUNCTION(BlueprintCallable)
 		void LoadMenu();
-
+	UFUNCTION(BluePrintCallable)
+		void LoadInGameMenu();
 
 private:
-	TSubclassOf<UUserWidget> MenuClass;
+	TSubclassOf<UUserWidget> MainMenuClass;
+	TSubclassOf<UUserWidget> GameMenuClass;
 
 	class UMainMenu * Menu;
-
 };
