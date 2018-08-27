@@ -22,6 +22,9 @@ bool UMainMenu::Initialize() {
 	if (!ensure(ConnectButton != nullptr)) return false;
 	ConnectButton->OnClicked.AddDynamic(this, &UMainMenu::Connect);
 
+	if (!ensure(QuitButton != nullptr)) return false;
+	QuitButton->OnClicked.AddDynamic(this, &UMainMenu::QuitGame);
+
 
 	return true;
 }
@@ -49,4 +52,12 @@ void UMainMenu::OpenMainMenu() {
 	if (!ensure(MainMenu != nullptr)) return;
 	MenuSwitcher->SetActiveWidget(MainMenu);
 
+}
+void UMainMenu::QuitGame() {
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+	APlayerController* PlayerControler = World->GetFirstPlayerController();
+	if (!ensure(PlayerControler != nullptr)) return;
+
+	PlayerControler->ConsoleCommand("quit");
 }

@@ -25,6 +25,8 @@ private:
 	UPROPERTY(meta = (BindWidget))
 		class UButton* BackButton;
 	UPROPERTY(meta = (BindWidget))
+		class UButton* QuitButton;
+	UPROPERTY(meta = (BindWidget))
 		class UWidgetSwitcher* MenuSwitcher;
 	UPROPERTY(meta = (BindWidget))
 		class UWidget* JoinMenu;
@@ -33,6 +35,8 @@ private:
 	UPROPERTY(meta = (BindWidget))
 		class UButton* ConnectButton;
 	
+
+
 	UPROPERTY(meta = (BindWidget))
 		class UEditableTextBox* IPTextBox;
 
@@ -45,7 +49,8 @@ private:
 		void OpenJoinMenu();
 	UFUNCTION()
 		void OpenMainMenu();
-	
+	UFUNCTION()
+		void QuitGame();
 protected:
 
 	virtual bool Initialize() override;
