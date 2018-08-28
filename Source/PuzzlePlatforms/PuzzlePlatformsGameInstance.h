@@ -27,7 +27,7 @@ public:
 	UFUNCTION(Exec)
 		void LoadMainMenu() override;
 	UFUNCTION(BlueprintCallable)
-		void LoadMenu();
+		void LoadMenuWidget();
 	UFUNCTION(BluePrintCallable)
 		void LoadInGameMenu();
 
