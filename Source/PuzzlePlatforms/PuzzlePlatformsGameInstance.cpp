@@ -11,7 +11,7 @@
 #include"MenuSystem/MainMenu.h"
 #include "MenuSystem/InGameMenu.h"
 
-
+const static FName SESSION_NAME = TEXT("My session game");
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer & ObjectInitializer) {
 	UE_LOG(LogTemp, Warning, TEXT("GameInstance COnstructor"));
@@ -39,6 +39,7 @@ void UPuzzlePlatformsGameInstance::Init() {
 			UE_LOG(LogTemp, Warning, TEXT("Found session interface."));
 			
 			SessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnCreateSessionComplete);
+			SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnDestroySessionComplete);
 		}
 	}
 	else {
@@ -48,8 +49,19 @@ void UPuzzlePlatformsGameInstance::Init() {
 
 void UPuzzlePlatformsGameInstance::Host() {
 	if (SessionInterface.IsValid()) {
+		auto ExistingSession = SessionInterface->GetNamedSession(SESSION_NAME);
+		if (ExistingSession != nullptr) {
+			SessionInterface->DestroySession(SESSION_NAME);
+		}
+		else {
+			CreateSession();
+		}
+	}
+}
+void UPuzzlePlatformsGameInstance::CreateSession() {
+	if (SessionInterface.IsValid()) {
 		FOnlineSessionSettings SessionSettings;
-		SessionInterface->CreateSession(0, TEXT("My session game"), SessionSettings);
+		SessionInterface->CreateSession(0, SESSION_NAME, SessionSettings);
 	}
 }
 
@@ -72,6 +84,14 @@ void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, bo
 
 	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 }
+
+void UPuzzlePlatformsGameInstance::OnDestroySessionComplete(FName SessionName, bool Success) {
+	if (Success) {
+		UE_LOG(LogTemp, Warning, TEXT("Destroy previous OnlineSession success."));
+		CreateSession();
+	}
+}
+
 
 void UPuzzlePlatformsGameInstance::Join(const FString& IPAdress) {
 	if (Menu != nullptr) {
