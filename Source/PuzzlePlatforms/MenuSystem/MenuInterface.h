@@ -26,4 +26,6 @@ public:
 	virtual void Join(const FString& IPAdress) = 0;
 
 	virtual void LoadMainMenu() = 0;
+
+	virtual void RefreshServerList() = 0;
 };

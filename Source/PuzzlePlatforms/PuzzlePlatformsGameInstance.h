@@ -32,6 +32,8 @@ public:
 	UFUNCTION(BluePrintCallable)
 		void LoadInGameMenu();
 
+	void RefreshServerList() override;
+
 private:
 	TSubclassOf<UUserWidget> MainMenuClass;
 	TSubclassOf<UUserWidget> GameMenuClass;
