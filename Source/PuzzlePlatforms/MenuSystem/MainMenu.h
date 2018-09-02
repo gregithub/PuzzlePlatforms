@@ -18,6 +18,8 @@ public:
 	UMainMenu(const FObjectInitializer & ObjectInitializer);
 
 	void SetServerList(TArray<FString> ServerNames);
+
+	void SelectIndex(uint32 Index);
 private:
 	TSubclassOf<UUserWidget> ServerRowClass;
 
@@ -55,6 +57,8 @@ private:
 		void OpenMainMenu();
 	UFUNCTION()
 		void QuitGame();
+
+	TOptional<uint32>SelectedIndex;
 protected:
 
 	virtual bool Initialize() override;
