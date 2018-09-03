@@ -72,15 +72,10 @@ void UMainMenu::SelectIndex(uint32 Index) {
 void UMainMenu::Connect() {
 	if (SelectedIndex.IsSet()) {
 		UE_LOG(LogTemp, Warning, TEXT("Selected index %d"),SelectedIndex.GetValue());
+		MenuInterface->Join(SelectedIndex.GetValue());
 	}
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("SelectedIndex is not set"));
-	}
-	if (MenuInterface != nullptr) {
-		//if (!ensure(IPTextBox != nullptr)) return;
-		//const FString& Address = IPTextBox->GetText().ToString();
-		MenuInterface->Join("");
-	
 	}
 }
 void UMainMenu::OpenJoinMenu() {
