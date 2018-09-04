@@ -21,6 +21,8 @@ bool UMainMenu::Initialize() {
 	bool Success = Super::Initialize();
 	if (!Success) return false;
 
+	if (!ensure(OpenHostButton != nullptr)) return false;
+	OpenHostButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
 
 	if (!ensure(HostButton != nullptr)) return false;
 	HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
@@ -30,6 +32,8 @@ bool UMainMenu::Initialize() {
 
 	if (!ensure(BackButton != nullptr)) return false;
 	BackButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
+	if (!ensure(CancelHostMenuButton != nullptr)) return false;
+	CancelHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
 	if (!ensure(ConnectButton != nullptr)) return false;
 	ConnectButton->OnClicked.AddDynamic(this, &UMainMenu::Connect);
@@ -44,7 +48,8 @@ bool UMainMenu::Initialize() {
 
 void UMainMenu::HostServer() {
 	if (MenuInterface != nullptr) {
-		MenuInterface->Host();
+		FString ServerName = ServerHostName->Text.ToString();
+		MenuInterface->Host(ServerName);
 	}
 }
 void UMainMenu::SetServerList(TArray<FServerData> ServerData) {
@@ -100,6 +105,11 @@ void UMainMenu::OpenJoinMenu() {
 	if(MenuInterface!=nullptr){
 		MenuInterface->RefreshServerList();
 	}
+}
+void UMainMenu::OpenHostMenu() {
+	if (!ensure(MenuSwitcher != nullptr)) return;
+	if (!ensure(HostMenu != nullptr)) return;
+	MenuSwitcher->SetActiveWidget(HostMenu);
 }
 void UMainMenu::OpenMainMenu() {
 	if (!ensure(MenuSwitcher != nullptr)) return;
