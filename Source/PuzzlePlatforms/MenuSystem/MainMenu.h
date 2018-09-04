@@ -59,6 +59,8 @@ private:
 		void QuitGame();
 
 	TOptional<uint32>SelectedIndex;
+
+	void UpadateChildren();
 protected:
 
 	virtual bool Initialize() override;
