@@ -5,13 +5,21 @@
 
 
 void ALobbyGameMode::PostLogin(APlayerController* NewPlayer) {
-	++CurrentNuberOfPlayers;
-	if (CurrentNuberOfPlayers > 0) {
-		UE_LOG(LogTemp, Warning, TEXT("Number of players: %i"),CurrentNuberOfPlayers);
+	Super::PostLogin(NewPlayer);
+
+	++CurrentNumberOfPlayers;
+	if (CurrentNumberOfPlayers >= 3) {
+
+		UWorld* World = GetWorld();
+		if (!ensure(World != nullptr)) return;
+		bUseSeamlessTravel = true;
+		World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 
 	}
 }
 
 void ALobbyGameMode::Logout(AController* Exiting) {
-	--CurrentNuberOfPlayers;
+	Super::Logout(Exiting);
+
+	--CurrentNumberOfPlayers;
 }

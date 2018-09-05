@@ -19,6 +19,6 @@ public:
 	void Logout(AController* Exiting) override;
 private:
 
-	uint32 CurrentNuberOfPlayers = 0;
+	uint32 CurrentNumberOfPlayers = 0;
 	
 };
