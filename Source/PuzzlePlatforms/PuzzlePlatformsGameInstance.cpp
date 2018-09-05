@@ -74,7 +74,7 @@ void UPuzzlePlatformsGameInstance::CreateSession() {
 		SessionSettings.NumPublicConnections = 2;
 		SessionSettings.bShouldAdvertise = true;
 		SessionSettings.bUsesPresence = true;
-		SessionSettings.Set(SERVER_NAME_SETTINGS_KEY, FString("Hello"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
+		SessionSettings.Set(SERVER_NAME_SETTINGS_KEY, DesiredServerName, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 		
 		SessionInterface->CreateSession(0, SESSION_NAME, SessionSettings);
 	}
@@ -97,7 +97,7 @@ void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, bo
 	UWorld* World = GetWorld();
 	if (!ensure(World!= nullptr)) return;
 
-	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
+	World->ServerTravel("/Game/Maps/Lobby?listen");
 }
 void UPuzzlePlatformsGameInstance::OnDestroySessionComplete(FName SessionName, bool Success) {
 	if (Success) {
@@ -113,12 +113,11 @@ void UPuzzlePlatformsGameInstance::OnFindSessionComplete(bool Success) {
 	for (const FOnlineSessionSearchResult& SearchResult : SessionSearch->SearchResults) {
 		UE_LOG(LogTemp, Warning, TEXT("Found session: %s"), *SearchResult.GetSessionIdStr());
 		FServerData Data;
-		Data.Name = SearchResult.GetSessionIdStr();
 		Data.HostUsername = SearchResult.Session.OwningUserName;
 		Data.TotalPlayers = SearchResult.Session.SessionSettings.NumPublicConnections;
 		Data.CurrentPlayers = Data.TotalPlayers - SearchResult.Session.NumOpenPublicConnections;
 		FString ServerName;
-		if (SearchResult.Session.SessionSettings.Get(TEXT("Test"), ServerName)) {
+		if (SearchResult.Session.SessionSettings.Get(SERVER_NAME_SETTINGS_KEY, ServerName)) {
 			Data.Name = ServerName;
 		}
 		else {
