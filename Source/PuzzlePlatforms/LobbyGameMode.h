@@ -17,8 +17,11 @@ class PUZZLEPLATFORMS_API ALobbyGameMode : public APuzzlePlatformsGameMode
 public:
 	void PostLogin(APlayerController* NewPlayer) override;
 	void Logout(AController* Exiting) override;
+	
 private:
+	void StartGame();
 
 	uint32 CurrentNumberOfPlayers = 0;
-	
+
+	FTimerHandle GameStartTimerHandle;
 };

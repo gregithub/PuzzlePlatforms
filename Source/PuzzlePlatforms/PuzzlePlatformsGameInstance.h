@@ -33,6 +33,8 @@ public:
 	UFUNCTION(BluePrintCallable)
 		void LoadInGameMenu();
 
+	void StartSession();
+
 	void RefreshServerList() override;
 
 private:
